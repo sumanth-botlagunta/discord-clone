@@ -1,3 +1,4 @@
+import CreateServer from "@/components/modals/create-server";
 import {db} from "@/lib/db";
 import {intialProfile} from "@/lib/initial-profile";
 
@@ -15,7 +16,12 @@ export default async function Home() {
   });
 
   if (!server) {
-    return <h1>Create a server</h1>;
+    return (
+      <div>
+        {" "}
+        <CreateServer />
+      </div>
+    );
   }
   return <main>Server created</main>;
 }
