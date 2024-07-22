@@ -10,7 +10,7 @@ export default async function Home() {
     where: {
       members: {
         some: {
-          profileId: profile.id,
+          profileId: profile.userId,
         },
       },
     },

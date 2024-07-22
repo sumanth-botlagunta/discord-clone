@@ -23,9 +23,11 @@ import {
 } from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
 import FileUploader from "@/components/file-uploader";
+import axios from "axios";
+import {useRouter} from "next/navigation";
 
 const formSchema = z.object({
-  severName: z
+  serverName: z
     .string()
     .min(3, {message: "minimum length is 3"})
     .max(100, {message: "maxminum length 100 exceeded"}),
@@ -33,6 +35,7 @@ const formSchema = z.object({
 });
 
 const CreateServer = () => {
+  const router = useRouter();
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     setIsMounted(true);
@@ -40,7 +43,7 @@ const CreateServer = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      severName: "",
+      serverName: "",
       imageUrl: "",
     },
   });
@@ -48,7 +51,10 @@ const CreateServer = () => {
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log("....values =", values);
+    await axios.post("/api/servers", values);
+    form.reset();
+    router.refresh();
+    window.location.reload();
   };
 
   if (!isMounted) {
@@ -87,7 +93,7 @@ const CreateServer = () => {
               />
               <FormField
                 control={form.control}
-                name="severName"
+                name="serverName"
                 render={({field}) => (
                   <FormItem>
                     <FormLabel className="text-sm font-bold text-zinc-500">
