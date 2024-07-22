@@ -22,6 +22,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
+import FileUploader from "@/components/file-uploader";
 
 const formSchema = z.object({
   severName: z
@@ -68,9 +69,22 @@ const CreateServer = () => {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <div className="space-y-9 px-6">
-              <div className="flex items-center justify-center text-center">
-                TODO: server Image uploader
-              </div>
+              <FormField
+                control={form.control}
+                name="imageUrl"
+                render={({field}) => (
+                  <FormItem>
+                    <FormControl>
+                      <FileUploader
+                        endpoint="serverImage"
+                        value={field.value}
+                        onchange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="severName"

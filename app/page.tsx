@@ -1,6 +1,7 @@
 import CreateServer from "@/components/modals/create-server";
 import {db} from "@/lib/db";
 import {intialProfile} from "@/lib/initial-profile";
+import "@uploadthing/react/styles.css";
 
 export default async function Home() {
   const profile = await intialProfile();
