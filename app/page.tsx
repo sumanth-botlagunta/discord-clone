@@ -2,6 +2,7 @@ import CreateServer from "@/components/modals/create-server";
 import {db} from "@/lib/db";
 import {intialProfile} from "@/lib/initial-profile";
 import "@uploadthing/react/styles.css";
+import {redirect} from "next/navigation";
 
 export default async function Home() {
   const profile = await intialProfile();
@@ -24,5 +25,6 @@ export default async function Home() {
       </div>
     );
   }
-  return <main>Server created</main>;
+  
+  redirect(`/servers/${server.id}`);
 }
